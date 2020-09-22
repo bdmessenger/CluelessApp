@@ -22380,6 +22380,24 @@ video {
           animation: bounce 1s infinite;
 }
 
+.mobile-name-labels {
+  top: -1.0rem;
+  right: 0;
+}
+
+.name-labels {
+  top: -1.9rem;
+  right: 0;
+}
+
+.mobile-name-labels div {
+  font-size: 7px;
+}
+
+.name-labels div {
+  font-size: 13px;
+}
+
 @media (min-width: 640px) {
   .sm\:container {
     width: 100%;
@@ -44103,6 +44121,24 @@ video {
   .sm\:animate-bounce {
     -webkit-animation: bounce 1s infinite;
             animation: bounce 1s infinite;
+  }
+
+  .sm\:mobile-name-labels {
+    top: -1.0rem;
+    right: 0;
+  }
+
+  .sm\:name-labels {
+    top: -1.9rem;
+    right: 0;
+  }
+
+  .sm\:mobile-name-labels div {
+    font-size: 7px;
+  }
+
+  .sm\:name-labels div {
+    font-size: 13px;
   }
 }
 
@@ -65830,6 +65866,24 @@ video {
     -webkit-animation: bounce 1s infinite;
             animation: bounce 1s infinite;
   }
+
+  .md\:mobile-name-labels {
+    top: -1.0rem;
+    right: 0;
+  }
+
+  .md\:name-labels {
+    top: -1.9rem;
+    right: 0;
+  }
+
+  .md\:mobile-name-labels div {
+    font-size: 7px;
+  }
+
+  .md\:name-labels div {
+    font-size: 13px;
+  }
 }
 
 @media (min-width: 1024px) {
@@ -87556,6 +87610,24 @@ video {
     -webkit-animation: bounce 1s infinite;
             animation: bounce 1s infinite;
   }
+
+  .lg\:mobile-name-labels {
+    top: -1.0rem;
+    right: 0;
+  }
+
+  .lg\:name-labels {
+    top: -1.9rem;
+    right: 0;
+  }
+
+  .lg\:mobile-name-labels div {
+    font-size: 7px;
+  }
+
+  .lg\:name-labels div {
+    font-size: 13px;
+  }
 }
 
 @media (min-width: 1280px) {
@@ -109281,5 +109353,23 @@ video {
   .xl\:animate-bounce {
     -webkit-animation: bounce 1s infinite;
             animation: bounce 1s infinite;
+  }
+
+  .xl\:mobile-name-labels {
+    top: -1.0rem;
+    right: 0;
+  }
+
+  .xl\:name-labels {
+    top: -1.9rem;
+    right: 0;
+  }
+
+  .xl\:mobile-name-labels div {
+    font-size: 7px;
+  }
+
+  .xl\:name-labels div {
+    font-size: 13px;
   }
 }

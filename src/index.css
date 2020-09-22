@@ -3,3 +3,24 @@
 @tailwind components;
 
 @tailwind utilities;
+
+
+@responsive {
+    .mobile-name-labels {
+        top: -1.0rem;
+        right: 0;
+    }
+
+    .name-labels {
+        top: -1.9rem;
+        right: 0;
+    }
+
+    .mobile-name-labels div {
+        font-size: 7px;
+    }
+
+    .name-labels div {
+        font-size: 13px;
+    }
+}
