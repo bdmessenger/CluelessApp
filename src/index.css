@@ -5,6 +5,11 @@
 @tailwind utilities;
 
 
+body {
+    @apply bg-green-200;
+}
+
+
 @responsive {
     .mobile-name-labels {
         top: -1.0rem;

@@ -1,18 +1,28 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 
 function OverlayMenu(props) {
     const {
-        isPlaying, 
-        amountOfPlayers, 
-        newListOfPlayers, 
+        playerNames,
         handleNewGameSubmit,
         setIsPlaying,
-        setPlayerAmount,
-        setNewPlayersList
     } = props;
 
+    const [newListOfPlayers, setNewPlayersList] = useState(playerNames);
+    const [amountOfPlayers, setPlayerAmount] = useState(playerNames.length);
+
+    useEffect(() => {
+      setNewPlayersList(state => {
+        if(state.length > amountOfPlayers) {
+          return state.slice(0, amountOfPlayers);
+        }
+        if(state.length < amountOfPlayers) return state.concat(Array.from({length: amountOfPlayers - state.length}, () => ""));
+
+        return state;
+      });
+    }, [amountOfPlayers]);
+
     return(
-    <div id="overlay-menu" className={`z-50 w-full h-screen top-0 ${isPlaying ? 'hidden' : 'fixed'}`} style={{backgroundColor: 'rgba(134,173,146, 0.7)'}}>
+    <div id="overlay-menu" className='z-50 w-full h-screen top-0 fixed' style={{backgroundColor: 'rgba(134,173,146, 0.7)'}}>
         <div className="max-w-screen-sm mx-auto h-screen flex justify-center items-center px-2">
           <div className="w-full text-center bg-gray-400 rounded border border-black p-4">
             <span>New Game</span>
@@ -69,7 +79,7 @@ function OverlayMenu(props) {
             </div>
             <div className="flex flex-col md:flex-row mt-4 gap-2 justify-center">
               <button className="bg-orange-200 w-full py-1 border-2 border-orange-400" onClick={() => setIsPlaying(true)}>Cancel</button>
-              <button className="bg-green-200 w-full py-1 border-2 border-green-400" onClick={handleNewGameSubmit}>Confirm</button>
+              <button className="bg-green-200 w-full py-1 border-2 border-green-400" onClick={() => handleNewGameSubmit(newListOfPlayers)}>Confirm</button>
             </div>
           </div>
         </div>

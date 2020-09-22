@@ -19,17 +19,19 @@ const roomNames = [
   'Billiard Room', 'Library', 'Study'
 ];
 
+const storageGrid = {
+  suspects: JSON.parse(localStorage.getItem('suspectGrid')),
+  weapons: JSON.parse(localStorage.getItem('weaponGrid')),
+  rooms: JSON.parse(localStorage.getItem('roomGrid'))
+};
+
 function App() {
-  const [isPlaying, setIsPlaying] = useState(false);
-  const [amountOfPlayers, setPlayerAmount] = useState(6);
-  const [newListOfPlayers, setNewPlayersList] = useState(['You']);
-
+  const [isPlaying, setIsPlaying] = useState(localStorage.getItem('isPlaying') || false);
+  const [playerNames, setPlayerNames] = useState(JSON.parse(localStorage.getItem("playerNames")) || ['You', 'Player 2', 'Player 3']);
   const [selectedTile, setSelectedTile] = useState(null);
-  const [suspectGrid, setSuspectGrid] = useState(Array.from({length: 6},()=> Array.from({length: amountOfPlayers}, () => "")));
-  const [weaponGrid, setWeaponGrid] = useState(Array.from({length: 6},()=> Array.from({length: amountOfPlayers}, () => "")));
-  const [roomGrid, setRoomGrid] = useState(Array.from({length: 9},()=> Array.from({length: amountOfPlayers}, () => "")));
-
-  const [playerNames, setPlayerNames] = useState([]);
+  const [suspectGrid, setSuspectGrid] = useState(storageGrid.suspects || Array.from({length: 6},()=> Array.from({length: playerNames.length}, () => "")));
+  const [weaponGrid, setWeaponGrid] = useState(storageGrid.weapons || Array.from({length: 6},()=> Array.from({length: playerNames.length}, () => "")));
+  const [roomGrid, setRoomGrid] = useState(storageGrid.rooms || Array.from({length: 9},()=> Array.from({length: playerNames.length}, () => "")));
 
   const handleTileChange = (value = "") => {
     const gridType = selectedTile.match(/[a-zA-Z]+/)[0];
@@ -60,10 +62,13 @@ function App() {
     setSelectedTile(null);
   }
 
-  const handleNewGameSubmit = () => {
+  const handleNewGameSubmit = (newListOfPlayers) => {
     if(newListOfPlayers.every(name => name.trim() !== '')) {
-
-    } else alert('Missing Names. Please fix and submit the names.');
+      localStorage.setItem('isPlaying', true);
+      setPlayerNames(newListOfPlayers);
+      clearBoard();
+      setIsPlaying(true);
+    } else alert('Missing name(s). Please fix and submit the name(s).');
   }
 
   const clearBoard = () => {
@@ -94,31 +99,48 @@ function App() {
   }
 
   useEffect(() => {
-    if(!isPlaying) {
-      
-    }
-  }, [isPlaying, newListOfPlayers]);
+    localStorage.setItem('suspectGrid', JSON.stringify(suspectGrid));
+    localStorage.setItem('weaponGrid', JSON.stringify(weaponGrid));
+    localStorage.setItem('roomGrid', JSON.stringify(roomGrid));
+    localStorage.setItem('playerNames', JSON.stringify(playerNames));
+  }, [suspectGrid, weaponGrid, roomGrid, playerNames]);
+
 
   return (
     <div>
-      <OverlayMenu
-        isPlaying={isPlaying}
-        amountOfPlayers={amountOfPlayers}
-        newListOfPlayers={newListOfPlayers}
-        handleNewGameSubmit={handleNewGameSubmit}
-        setIsPlaying={setIsPlaying}
-        setPlayerAmount={setPlayerAmount}
-        setNewPlayersList={setNewPlayersList}
-      />
+      {
+        !isPlaying &&
+        <OverlayMenu
+          playerNames={playerNames}
+          handleNewGameSubmit={handleNewGameSubmit}
+          setIsPlaying={setIsPlaying}
+        />
+      }
       <div className="mx-auto max-w-screen-sm w-full px-2 relative my-2">
-        <div id="sheet" className="border-8 border-white bg-green-200 p-4 px-6 w-full relative" style={{outline: '1px solid'}}>
+        <div className="flex flex-col md:flex-row gap-2">
+          <button 
+            className="py-1 rounded text-xl text-red-900 w-full bg-red-200 border-2 border-red-400 focus:bg-red-300 focus:outline-none" 
+            onClick={(e) => {
+              setIsPlaying(false);
+              e.target.blur();
+            }}
+          >New Game</button>
+          <button 
+            className="py-1 rounded text-xl text-orange-900 w-full bg-orange-200 border-2 border-orange-400 focus:bg-orange-300 focus:outline-none"
+            onClick={(e) => {
+              if(window.confirm('Are you sure to clear the board?')) clearBoard();
+              e.target.blur();
+            }}
+          >Clear Grid</button>
+        </div>
+        <div id="sheet" className="mt-3 border-8 border-white bg-green-200 p-4 px-6 w-full relative" style={{outline: '1px solid'}}>
           <ContentBox
             name="suspects" 
             labels={suspectNames} 
             selectedTile={selectedTile} 
             setSelectedTile={setSelectedTile}
             grid={suspectGrid}
-            players={['You', 'Trey', 'Jon', 'Adrean', 'Jaclyn','Mikel']}
+            players={playerNames}
           />
 
           <ContentBox

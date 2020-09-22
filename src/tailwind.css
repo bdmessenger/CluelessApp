@@ -22380,6 +22380,12 @@ video {
           animation: bounce 1s infinite;
 }
 
+body {
+  --bg-opacity: 1;
+  background-color: #c6f6d5;
+  background-color: rgba(198, 246, 213, var(--bg-opacity));
+}
+
 .mobile-name-labels {
   top: -1.0rem;
   right: 0;
