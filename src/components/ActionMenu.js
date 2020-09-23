@@ -11,7 +11,7 @@ function ActionMenu(props) {
     };
 
     return(
-        <div className="z-50 fixed text-center w-full h-64 md:h-48" style={menuStyle}>
+        <div className="z-50 fixed text-center w-full h-64 lg:h-48" style={menuStyle}>
           <div className="max-w-screen-sm mx-auto h-full my-3 p-2">
             <div className="flex justify-around flex-col md:flex-row gap-2 ">
               <button 

@@ -3,6 +3,8 @@ import ContentBox from './components/ContentBox';
 import ActionMenu from './components/ActionMenu';
 import OverlayMenu from './components/OverlayMenu';
 
+import FingerPrintImage from './images/finger-print.png'
+
 const suspectNames = [
   'Colonel Mustard', 'Professor Plum', 'Mr. Green',
   'Mrs. Peacock', 'Miss Scarlet', 'Mrs. White'
@@ -27,7 +29,7 @@ const storageGrid = {
 
 function App() {
   const [isPlaying, setIsPlaying] = useState(localStorage.getItem('isPlaying') || false);
-  const [playerNames, setPlayerNames] = useState(JSON.parse(localStorage.getItem("playerNames")) || ['You', 'Player 2', 'Player 3']);
+  const [playerNames, setPlayerNames] = useState(JSON.parse(localStorage.getItem("playerNames")) || ['You', 'P2', 'P3']);
   const [selectedTile, setSelectedTile] = useState(null);
   const [suspectGrid, setSuspectGrid] = useState(storageGrid.suspects || Array.from({length: 6},()=> Array.from({length: playerNames.length}, () => "")));
   const [weaponGrid, setWeaponGrid] = useState(storageGrid.weapons || Array.from({length: 6},()=> Array.from({length: playerNames.length}, () => "")));
@@ -66,15 +68,15 @@ function App() {
     if(newListOfPlayers.every(name => name.trim() !== '')) {
       localStorage.setItem('isPlaying', true);
       setPlayerNames(newListOfPlayers);
-      clearBoard();
+      clearBoard(newListOfPlayers);
       setIsPlaying(true);
     } else alert('Missing name(s). Please fix and submit the name(s).');
   }
 
-  const clearBoard = () => {
-    setSuspectGrid(Array.from({length: 6},()=> Array.from({length: playerNames.length}, () => "")));
-    setWeaponGrid(Array.from({length: 6},()=> Array.from({length: playerNames.length}, () => "")));
-    setRoomGrid(Array.from({length: 9},()=> Array.from({length: playerNames.length}, () => "")));
+  const clearBoard = (listOfPlayers = playerNames) => {
+    setSuspectGrid(Array.from({length: 6},()=> Array.from({length: listOfPlayers.length}, () => "")));
+    setWeaponGrid(Array.from({length: 6},()=> Array.from({length: listOfPlayers.length}, () => "")));
+    setRoomGrid(Array.from({length: 9},()=> Array.from({length: listOfPlayers.length}, () => "")));
   }
 
   const checkGrid = () => {
@@ -133,14 +135,28 @@ function App() {
             }}
           >Clear Grid</button>
         </div>
-        <div id="sheet" className="mt-3 border-8 border-white bg-green-200 p-4 px-6 w-full relative" style={{outline: '1px solid'}}>
+        <div id="sheet" className="mt-3 border-8 border-white bg-green-200 p-4 px-6 w-full relative overflow-hidden" style={{outline: '1px solid'}}>
+          
+          <img 
+            className="z-10 absolute" 
+            src={FingerPrintImage}
+            alt="finger-print"
+            style={{
+              transform: 'rotate(30deg)', 
+              opacity: '8%',
+              top: '10%',
+              left: '5%'
+            }}
+            width="100%" height="100%"
+          />
+
           <ContentBox
             name="suspects" 
             labels={suspectNames} 
             selectedTile={selectedTile} 
             setSelectedTile={setSelectedTile}
             grid={suspectGrid}
-            players={playerNames}
+            playerNames={playerNames}
           />
 
           <ContentBox
