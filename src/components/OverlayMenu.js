@@ -78,8 +78,14 @@ function OverlayMenu(props) {
               <div className="text-xs my-4 text-gray-700 opacity-50">*Max Characters: 6*</div>
             </div>
             <div className="flex flex-col md:flex-row mt-4 gap-2 justify-center">
-              <button className="bg-orange-200 text-orange-700 w-full py-1 border-2 border-orange-400 focus:outline-none focus:bg-orange-400" onClick={() => setIsPlaying(true)}>Cancel</button>
-              <button className="bg-green-200 text-green-700 w-full py-1 border-2 border-green-400 focus:outline-none focus:bg-green-400" onClick={() => handleNewGameSubmit(newListOfPlayers)}>Confirm</button>
+              <button 
+                className="bg-orange-200 text-orange-700 w-full py-1 border-2 border-orange-400 focus:outline-none focus:bg-orange-400" 
+                onClick={(e) => {setIsPlaying(true); e.target.blur();}}
+              >Cancel</button>
+              <button 
+                className="bg-green-200 text-green-700 w-full py-1 border-2 border-green-400 focus:outline-none focus:bg-green-400" 
+                onClick={(e) => {handleNewGameSubmit(newListOfPlayers); e.target.blur();}}
+              >Confirm</button>
             </div>
           </div>
         </div>

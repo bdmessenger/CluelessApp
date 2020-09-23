@@ -24,7 +24,7 @@ function ActionMenu(props) {
               <button className={`rounded text-2xl text-red-900 w-full py-1 bg-red-400 border-2 border-red-600 focus:bg-red-500 focus:outline-none ${!selectedTile ? 'opacity-50 cursor-not-allowed' : ''}`} onClick={() => handleTileChange('X')}>Don't Have It</button>
               <button className={`rounded text-2xl text-orange-900 w-full py-1 bg-orange-400 border-2 border-orange-600 focus:bg-orange-500 focus:outline-none ${!selectedTile ? 'opacity-50 cursor-not-allowed' : ''}`} onClick={() => handleTileChange()}>Clear Space</button>
             </div>
-            <button className="rounded text-2xl w-full mt-4 py-1 bg-blue-400 border-2 border-blue-600 focus:bg-blue-500 focus:outline-none text-white" onClick={() => setSelectedTile(null)}>Close</button>
+            <button className="rounded text-blue-100 text-2xl w-full mt-4 py-1 bg-blue-400 border-2 border-blue-600 focus:bg-blue-500 focus:outline-none text-white" onClick={() => setSelectedTile(null)}>Close</button>
           </div>
         </div>
     );
