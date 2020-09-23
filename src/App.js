@@ -28,7 +28,7 @@ const storageGrid = {
 };
 
 function App() {
-  const [isPlaying, setIsPlaying] = useState(localStorage.getItem('isPlaying') || false);
+  const [isPlaying, setIsPlaying] = useState(JSON.parse(localStorage.getItem('isPlaying')) || false);
   const [playerNames, setPlayerNames] = useState(JSON.parse(localStorage.getItem("playerNames")) || ['You', 'P2', 'P3']);
   const [selectedTile, setSelectedTile] = useState(null);
   const [suspectGrid, setSuspectGrid] = useState(storageGrid.suspects || Array.from({length: 6},()=> Array.from({length: playerNames.length}, () => "")));
@@ -66,7 +66,6 @@ function App() {
 
   const handleNewGameSubmit = (newListOfPlayers) => {
     if(newListOfPlayers.every(name => name.trim() !== '')) {
-      localStorage.setItem('isPlaying', true);
       setPlayerNames(newListOfPlayers);
       clearBoard(newListOfPlayers);
       setIsPlaying(true);
@@ -105,7 +104,8 @@ function App() {
     localStorage.setItem('weaponGrid', JSON.stringify(weaponGrid));
     localStorage.setItem('roomGrid', JSON.stringify(roomGrid));
     localStorage.setItem('playerNames', JSON.stringify(playerNames));
-  }, [suspectGrid, weaponGrid, roomGrid, playerNames]);
+    localStorage.setItem('isPlaying', isPlaying);
+  }, [suspectGrid, weaponGrid, roomGrid, playerNames, isPlaying]);
 
 
   return (
