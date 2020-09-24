@@ -182,6 +182,7 @@ function App() {
         checkGrid={checkGrid} 
         handleTileChange={handleTileChange}
       />
+      <div className="text-center my-4">© 2020 Brant Messenger</div>
     </div>
   );
 }
